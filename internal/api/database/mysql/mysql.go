@@ -3,7 +3,7 @@ package mysql
 import (
 	"fmt"
 	"github.com/joho/godotenv"
-	"go-rust-drop/config/db"
+	"go-boilerplate/config/db"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"

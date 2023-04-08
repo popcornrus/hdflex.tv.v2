@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"go-rust-drop/internal/api/database/mongodb"
-	"go-rust-drop/internal/api/database/mysql"
+	"go-boilerplate/internal/api/database/mongodb"
+	"go-boilerplate/internal/api/database/mysql"
 	"gorm.io/gorm"
 	"log"
 )

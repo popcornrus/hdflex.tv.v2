@@ -2,7 +2,7 @@ package resources
 
 import (
 	"encoding/json"
-	"go-rust-drop/internal/api/models"
+	"go-boilerplate/internal/api/models"
 )
 
 type UserResources struct {

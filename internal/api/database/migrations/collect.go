@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	mysql "go-rust-drop/internal/api/database/mysql"
+	mysql "go-boilerplate/internal/api/database/mysql"
 	"gorm.io/gorm"
 	"log"
 )

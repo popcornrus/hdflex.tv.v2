@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"go-rust-drop/internal/api/database/migrations"
-	"go-rust-drop/internal/api/routes"
+	"go-boilerplate/internal/api/database/migrations"
+	"go-boilerplate/internal/api/routes"
 	"log"
 	"os"
 )

@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"go-rust-drop/internal/api/models"
+	"go-boilerplate/internal/api/models"
 	"log"
 )
 

@@ -3,7 +3,7 @@ package mongodb
 import (
 	"context"
 	"fmt"
-	"go-rust-drop/config/db"
+	"go-boilerplate/config/db"
 	"net/url"
 	"sync"
 

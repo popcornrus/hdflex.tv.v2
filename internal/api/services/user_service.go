@@ -1,7 +1,7 @@
 package services
 
 import (
-	"go-rust-drop/internal/api/repositories"
+	"go-boilerplate/internal/api/repositories"
 	"gorm.io/gorm"
 )
 
