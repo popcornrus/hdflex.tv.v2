@@ -8,6 +8,7 @@ services:
     ports:
       - "32530:5050"
     depends_on:
+      - "mysql"
       - "mongodb"
       - "memcached"
     restart: always
@@ -23,8 +24,8 @@ services:
     container_name: mongodb
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=api
-      - MONGO_INITDB_ROOT_PASSWORD=
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - "32531:27017"
     restart: unless-stopped
@@ -41,7 +42,7 @@ services:
     tty: true
     environment:
       MYSQL_DATABASE: api
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - '32532:3306'
     volumes:
