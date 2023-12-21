@@ -1,4 +1,4 @@
-db = db.getSiblingDB('rust_drop');
+db = db.getSiblingDB('go-boilerplate');
 db.createCollection("run_time")
 
 db.run_time.insert({

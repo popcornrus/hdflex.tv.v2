@@ -1,18 +1,18 @@
-APP_NAME=api
+APP_NAME=root
 ROOT_PATH=/app
 DOCKER_EXE=docker compose
 DOCKER_NETWORK=go-network
 
 .PHONY: docker
 
+docker: check-network create-env
+	@echo "Starting the Docker Compose stack..."
+	$(DOCKER_EXE) up -d
+
 build:
 	@cd "$(ROOT_PATH)/cmd/$(APP_NAME)" && go build -buildvcs=false -o "$(APP_NAME)"
 	@chmod +x "$(ROOT_PATH)/cmd/$(APP_NAME)/$(APP_NAME)"
 	@mv "$(ROOT_PATH)/cmd/$(APP_NAME)/$(APP_NAME)" "$(ROOT_PATH)/tmp/$(APP_NAME)"
-
-docker: check-network create-env
-	@echo "Starting the Docker Compose stack..."
-	$(DOCKER_EXE) up -d
 
 check-network:
 	@echo "Checking if the network exists..."

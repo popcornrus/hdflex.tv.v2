@@ -21,15 +21,11 @@ type (
 	}
 
 	Config struct {
-		Env              string `yaml:"env"`
-		HTTPServer       `yaml:"http_server"`
-		SteamTradeServer `yaml:"steam_trade_server"`
-		ChatServer       `yaml:"chat_server"`
-		WSServer         `yaml:"ws_server"`
-		DB               `yaml:"db"`
-		ENVState         `yaml:"env_state"`
-		MongoDB          `yaml:"mongodb"`
-		Steam            `yaml:"steam"`
+		Env        string `yaml:"env"`
+		HTTPServer `yaml:"http_server"`
+		DB         `yaml:"db"`
+		ENVState   `yaml:"env_state"`
+		MongoDB    `yaml:"mongodb"`
 	}
 
 	ENVState struct {
@@ -42,34 +38,6 @@ type (
 		Address     string        `yaml:"address" env-default:"localhost:8080"`
 		Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 		IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-	}
-
-	SteamTradeServer struct {
-		Address     string        `yaml:"address" env-default:"localhost:8080"`
-		Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
-		IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-	}
-
-	Steam struct {
-		SteamContextID uint64 `yaml:"steam_context_id" env-default:"2"`
-		SteamAppID     uint64 `yaml:"steam_app_id" env-default:"252490"`
-		SteamApiKey    string `yaml:"steam_api_key" env-default:"HRkRI5z1_UZvIi49S05tXKV6RRo"`
-	}
-
-	ChatServer struct {
-		Address     string        `yaml:"address" env-default:"localhost:8081"`
-		Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
-		IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-	}
-
-	WSServer struct {
-		AppID   string `yaml:"app_id"`
-		Host    string `yaml:"address"`
-		Port    string `yaml:"port"`
-		Cluster string `yaml:"cluster"`
-		Secret  string `yaml:"secret"`
-		Key     string `yaml:"key"`
-		Secure  bool   `yaml:"secure"`
 	}
 
 	DB struct {

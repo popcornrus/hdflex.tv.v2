@@ -1,4 +1,4 @@
-package api
+package root
 
 import (
 	"go-boilerplate/external/config"

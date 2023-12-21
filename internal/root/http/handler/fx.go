@@ -5,10 +5,15 @@ import (
 )
 
 type Handlers struct {
+	User *UserHandler
 }
 
-func NewHandlers() *Handlers {
-	return &Handlers{}
+func NewHandlers(
+	uh *UserHandler,
+) *Handlers {
+	return &Handlers{
+		User: uh,
+	}
 }
 
 func NewHandler() fx.Option {
@@ -16,6 +21,7 @@ func NewHandler() fx.Option {
 		"handler",
 		fx.Options(),
 		fx.Provide(
+			NewUserHandler,
 			NewHandlers,
 		),
 	)

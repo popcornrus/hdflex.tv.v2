@@ -1,14 +1,14 @@
-package api
+package root
 
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/patrickmn/go-cache"
 	"go-boilerplate/external/config"
 	"go-boilerplate/external/db"
-	"go-boilerplate/internal/api/http/handler"
-	"go-boilerplate/internal/api/http/middleware"
-	"go-boilerplate/internal/api/repository"
-	"go-boilerplate/internal/api/service"
+	"go-boilerplate/internal/root/http/handler"
+	"go-boilerplate/internal/root/http/middleware"
+	"go-boilerplate/internal/root/repository"
+	"go-boilerplate/internal/root/service"
 	"go.uber.org/fx"
 )
 

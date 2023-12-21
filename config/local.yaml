@@ -1,0 +1,22 @@
+env: "local" # local, dev, prod
+http_server:
+  address: ":8082"
+  timeout: 4s
+  idle_timeout: 60s
+db:
+  max_open_conns: 25
+  max_idle_conns: 25
+  conn_max_lifetime: 3m
+mongodb:
+  mongodb_uri: mongodb://mongodb:27017
+  mongodb_host: mongodb
+  mongodb_port: 27017
+  mongodb_dbname: go-boilerplate
+  mongodb_user: admin
+  mongodb_password: admin
+  mongodb_auth_database: admin
+  mongodb_auth_mechanism: SCRAM-SHA-1
+env_state:
+  local: "local"
+  dev: "dev"
+  prod: "prod"

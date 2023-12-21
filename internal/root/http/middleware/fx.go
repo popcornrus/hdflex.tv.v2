@@ -5,16 +5,22 @@ import (
 )
 
 type Middleware struct {
+	AuthMiddleware *AuthMiddleware
 }
 
-func NewMiddlewares() *Middleware {
-	return &Middleware{}
+func NewMiddlewares(
+	auth *AuthMiddleware,
+) *Middleware {
+	return &Middleware{
+		AuthMiddleware: auth,
+	}
 }
 
 func NewMiddleware() fx.Option {
 	return fx.Module(
 		"middleware",
 		fx.Provide(
+			NewAuthMiddleware,
 			NewMiddlewares,
 		),
 	)

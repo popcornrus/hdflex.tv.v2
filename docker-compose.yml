@@ -6,14 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "32530:5050"
+      - "32530:8082"
     depends_on:
       - "mysql"
       - "mongodb"
       - "memcached"
     restart: always
     environment:
-      - GO_PORT=5050
+      - GO_PORT=8082
       - ROOT_PATH=/app
     volumes:
       - ./:/app
