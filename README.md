@@ -1,4 +1,4 @@
-# Rust drop project on Go
+# Boilerplate project on Go
 
 ## To set up .env file with connections to db's:
 ##### MongoDB Connection
