@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
-	"go-boilerplate/external/logger/sl"
+	"go-chat/external/logger/sl"
 	ucfg "go.uber.org/config"
 	"go.uber.org/fx"
 	"log/slog"
@@ -23,7 +23,6 @@ type (
 	Config struct {
 		Env        string `yaml:"env"`
 		HTTPServer `yaml:"http_server"`
-		DB         `yaml:"db"`
 		ENVState   `yaml:"env_state"`
 		MongoDB    `yaml:"mongodb"`
 	}
@@ -38,17 +37,6 @@ type (
 		Address     string        `yaml:"address" env-default:"localhost:8080"`
 		Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 		IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-	}
-
-	DB struct {
-		MaxOpenConns    int           `yaml:"max_open_conns" env-default:"25"`
-		MaxIdleConns    int           `yaml:"max_idle_conns" env-default:"25"`
-		ConnMaxLifetime time.Duration `yaml:"conn_max_lifetime" env-default:"3m"`
-		MysqlUser       string        `env:"MYSQL_USER" env-default:"root"`
-		MysqlPassword   string        `env:"MYSQL_PASSWORD" env-default:"root"`
-		MysqlHost       string        `env:"MYSQL_HOST" env-default:"localhost"`
-		MysqlPort       string        `env:"MYSQL_PORT" env-default:"3306"`
-		MysqlDBName     string        `env:"MYSQL_DBNAME" env-default:"rust"`
 	}
 
 	/*	MongoDB struct {
@@ -99,18 +87,6 @@ func NewConfig() (*Config, error) {
 	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
 		return nil, fmt.Errorf("cannot read config: %s", err)
 	}
-
-	/*loader, err := config.NewYAML(config.File(configPath))
-	if err != nil {
-		return nil, fmt.Errorf("cannot read config: %s", err)
-	}
-
-
-	if err := loader.Get("royal").Populate(&cfg); err != nil {
-		return nil, fmt.Errorf("cannot populate config: %s", err)
-	}
-
-	log.Info("Config", sl.Any("config", cfg))*/
 
 	return &cfg, nil
 }

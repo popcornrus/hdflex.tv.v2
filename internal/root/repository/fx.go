@@ -7,11 +7,6 @@ import (
 func NewRepository() fx.Option {
 	return fx.Module(
 		"repository",
-		fx.Provide(
-			fx.Annotate(
-				NewUserRepository,
-				fx.As(new(UserRepositoryInterface)),
-			),
-		),
+		fx.Provide(),
 	)
 }

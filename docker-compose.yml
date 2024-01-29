@@ -1,16 +1,15 @@
 version: "3.9"
 services:
   backend:
-    container_name: backend
+    container_name: chat-api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "32530:8082"
     depends_on:
-      - "mysql"
+     # - "websocket"
       - "mongodb"
-      - "memcached"
     restart: always
     environment:
       - GO_PORT=8082
@@ -18,10 +17,10 @@ services:
     volumes:
       - ./:/app
     networks:
-      - go-network
+      - chat-network
 
   mongodb:
-    container_name: mongodb
+    container_name: chat-mdb
     image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
@@ -33,31 +32,8 @@ services:
       - ./docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - ./storage/db/mdb:/data/db
     networks:
-      - go-network
-
-  mysql:
-    image: mysql:latest
-    container_name: mysql
-    restart: unless-stopped
-    tty: true
-    environment:
-      MYSQL_DATABASE: api
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - '32532:3306'
-    volumes:
-      - ./storage/db/mysql:/var/lib/mysql
-    networks:
-      - go-network
-
-  memcached:
-    container_name: memcached
-    image: memcached
-    ports:
-      - "32533:11211"
-    networks:
-      - go-network
+      - chat-network
         
 networks:
-  go-network:
+  chat-network:
     external: true
