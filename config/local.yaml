@@ -1,17 +1,14 @@
 env: "local" # local, dev, prod
+ws_server:
+  address: ":5051"
 http_server:
-  address: ":8082"
+  address: ":80"
   timeout: 4s
   idle_timeout: 60s
-mongodb:
-  mongodb_uri: mongodb://mongodb:27017
-  mongodb_host: mongodb
-  mongodb_port: 27017
-  mongodb_dbname: go-chat
-  mongodb_user: admin
-  mongodb_password: admin
-  mongodb_auth_database: admin
-  mongodb_auth_mechanism: SCRAM-SHA-1
+mysql:
+  max_open_connections: 10
+  max_idle_connections: 10
+  max_connection_lifetime: 5m
 env_state:
   local: "local"
   dev: "dev"

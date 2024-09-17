@@ -1,39 +1,51 @@
 version: "3.9"
 services:
   backend:
-    container_name: chat-api
+    container_name: hdflex-api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "32530:8082"
+      - "32600:80"
     depends_on:
-     # - "websocket"
+      - "mysql"
       - "mongodb"
-    restart: always
-    environment:
-      - GO_PORT=8082
-      - ROOT_PATH=/app
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     volumes:
-      - ./:/app
+      - .:/srv/hdflex.tv:delegate
     networks:
-      - chat-network
+      - hdflex-network
+
+  mysql:
+    container_name: hdflex-mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hdflex
+    ports:
+        - "32602:3306"
+    volumes:
+      - ./storage/db/mysql:/var/lib/mysql
+    networks:
+      - hdflex-network
 
   mongodb:
-    container_name: chat-mdb
-    image: mongo
+    container_name: hdflex-mdb
+    image: mongo:latest
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
-      - "32531:27017"
+      - "32601:27017"
     restart: unless-stopped
     volumes:
       - ./docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - ./storage/db/mdb:/data/db
     networks:
-      - chat-network
+      - hdflex-network
         
 networks:
-  chat-network:
+  hdflex-network:
     external: true

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
-	"go-chat/external/logger/sl"
+	"go-hdflex/external/logger/sl"
 	ucfg "go.uber.org/config"
 	"go.uber.org/fx"
 	"log/slog"
@@ -21,34 +21,41 @@ type (
 	}
 
 	Config struct {
-		Env        string `yaml:"env"`
-		HTTPServer `yaml:"http_server"`
-		ENVState   `yaml:"env_state"`
+		Env        string `env:"APP_ENV" yaml:"env"`
+		HttpServer `yaml:"http_server"`
+		EnvState   `yaml:"env_state"`
+		MySql      `yaml:"mysql"`
 		MongoDB    `yaml:"mongodb"`
+
+		Tmdb `yaml:"tmdb"`
 	}
 
-	ENVState struct {
+	Tmdb struct {
+		ApiKey string `yaml:"token" env:"TMDB_API_TOKEN" env-default:"t0k3n"`
+	}
+
+	EnvState struct {
 		Local string `yaml:"local" env-default:"local"`
 		Dev   string `yaml:"dev" env-default:"dev"`
 		Prod  string `yaml:"prod" env-default:"prod"`
 	}
 
-	HTTPServer struct {
+	HttpServer struct {
 		Address     string        `yaml:"address" env-default:"localhost:8080"`
 		Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 		IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
 	}
 
-	/*	MongoDB struct {
-		URI           string `env:"MONGODB_URI" env-default:"mongodb://localhost:27017"`
-		User          string `env:"MONGODB_USER" env-default:"root"`
-		Password      string `env:"MONGODB_PASSWORD" env-default:"root"`
-		Host          string `env:"MONGODB_HOST" env-default:"localhost"`
-		Port          string `env:"MONGODB_PORT" env-default:"27017"`
-		DBName        string `env:"MONGODB_DBNAME" env-default:"rust"`
-		AuthDatabase  string `env:"MONGODB_AUTH_DBNAME" env-default:"admin"`
-		AuthMechanism string `env:"MONGODB_AUTH_MECHANISM" env-default:"SCRAM-SHA-1"`
-	}*/
+	MySql struct {
+		User                  string        `yaml:"user" env:"MYSQL_USER" env-default:"root"`
+		Password              string        `yaml:"password" env:"MYSQL_PASSWORD" env-default:"root"`
+		Host                  string        `yaml:"host" env:"MYSQL_HOST" env-default:"localhost"`
+		Port                  string        `yaml:"port" env:"MYSQL_PORT" env-default:"3306"`
+		DBName                string        `yaml:"dbname" env:"MYSQL_DBNAME" env-default:"db"`
+		MaxOpenConnections    int           `yaml:"max_open_connections" env-default:"10"`
+		MaxIdleConnections    int           `yaml:"max_idle_connections" env-default:"10"`
+		MaxConnectionLifetime time.Duration `yaml:"max_connection_lifetime" env-default:"5m"`
+	}
 
 	MongoDB struct {
 		URI           string `yaml:"mongodb_uri" env-default:"mongodb://mongo:27017"`

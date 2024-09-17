@@ -1,0 +1,1 @@
+DROP TABLE IF exists `content_external_ids`

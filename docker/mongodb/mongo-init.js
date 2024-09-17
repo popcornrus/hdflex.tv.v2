@@ -1,4 +1,4 @@
-db = db.getSiblingDB('go-boilerplate');
+db = db.getSiblingDB('go-hdflex');
 db.createCollection("run_time")
 
 db.run_time.insert({

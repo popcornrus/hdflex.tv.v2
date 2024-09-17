@@ -2,20 +2,20 @@
 
 # Working directory
 # . or absolute path, please note that the directories following must be under root.
-root = "/app"
+root = "/srv/hdflex.tv"
 tmp_dir = "tmp"
 
 [build]
 # Just plain old shell command. You could use `make` as well.
-cmd = "make build"
+cmd = "make build-api"
 # Binary file yields from `cmd`.
-bin = "/app/tmp/root"
+bin = "/srv/hdflex.tv/tmp/hdflex-api"
 # Customize binary, can setup environment variables when run your app.
-full_bin = "APP_ENV=local /app/tmp/root"
+full_bin = "/srv/hdflex.tv/tmp/hdflex-api"
 # Watch these filename extensions.
 include_ext = ["go", "tpl", "tmpl", "html"]
 # Ignore these filename extensions or directories.
-exclude_dir = ["assets", "tmp", "vendor", "storage"]
+exclude_dir = ["assets", "tmp", "vendor", "storage", "public_html"]
 # Watch these directories if you specified.
 include_dir = []
 # Watch these files.

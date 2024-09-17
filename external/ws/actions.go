@@ -13,41 +13,47 @@ type Socket struct {
 	Data    interface{} `json:"data"`
 }
 
-func Actions(c *cache.Cache, conn *websocket.Conn, data *Socket) {
+func Actions(c *cache.Cache, conn *websocket.Conn, data *Socket, token string) {
 	switch data.Event[7:] {
 	case "subscribe":
-		channelSubscribers, _ := c.Get(data.Channel)
 		_subscribe(conn, data)
 
-		switch channelSubscribers.(type) {
-		case []*websocket.Conn:
-			channelSubscribers = append(channelSubscribers.([]*websocket.Conn), conn)
-			c.Set(data.Channel, channelSubscribers, time.Hour)
-		default:
-			c.Set(data.Channel, []*websocket.Conn{conn}, time.Hour)
-		}
+		channelSubscribers := make(map[string][]*websocket.Conn)
+		channelSubscribers[data.Channel] = append(channelSubscribers[data.Channel], conn)
+
+		c.Set(token, channelSubscribers, time.Hour)
 
 		break
 	case "unsubscribe":
-		channelSubscribers, _ := c.Get(data.Channel)
+		stack, _ := c.Get(token)
 		_unsubscribe(conn, data)
 
-		if channelSubscribers != nil {
-			for i, subscriber := range channelSubscribers.([]*websocket.Conn) {
-				if subscriber == conn {
-					channelSubscribers = append(channelSubscribers.([]*websocket.Conn)[:i], channelSubscribers.([]*websocket.Conn)[i+1:]...)
-
-					if len(channelSubscribers.([]*websocket.Conn)) == 0 {
-						c.Delete(data.Channel)
-						break
+		if stack != nil {
+			connections, ok := stack.(map[string][]*websocket.Conn)
+			if ok {
+				connectionsList, exists := connections[data.Channel]
+				if exists {
+					for i, connection := range connectionsList {
+						if connection == conn {
+							// Remove the connection from the slice
+							connectionsList = append(connectionsList[:i], connectionsList[i+1:]...)
+							break
+						}
 					}
 
-					c.Set(data.Channel, channelSubscribers, time.Hour)
-					break
+					// Update the connections list in the map
+					connections[data.Channel] = connectionsList
+
+					// If the connections list is empty, remove the channel from the stack
+					if len(connectionsList) == 0 {
+						delete(connections, data.Channel)
+					}
+
+					// Update the cache with the modified stack
+					c.Set(token, connections, time.Hour)
 				}
 			}
 		}
-
 		break
 	default:
 		return
